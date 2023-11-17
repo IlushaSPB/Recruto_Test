@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <p> Вы уже вошли в систему</p>
+    {% else %}
+
+{% block content %}
+
+    <h1>Login</h1>
+    <hr>
+    <form action="{% url 'login' %}" method="post" class="login-form">
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">submit</button>
+    </form>
+
+    {% for error in form.non_field_errors %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+{% endblock %}
+{% endif %}
+</body>
+</html>
